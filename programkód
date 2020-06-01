@@ -1,0 +1,64 @@
+#!bin/bash
+
+echo "Kerem adja meg a szamot a muvelet elvegzesehez"
+echo "1- osszeadas"
+echo "2- kivonas"
+echo "3- szorzas"
+echo "4- osztas"
+echo "5- masodfoku egyenlet"
+echo "6- logaritmus"
+echo "7- hatvanyozas"
+
+read option;
+
+case $option in
+1 )
+		read -p  "Adja meg az elso szamot: " a;
+		read -p  "Adja meg a masodik szamot :" b;
+		c=$(( $a + $b));
+		echo "Az osszeadas eredmenye: $c";
+		;;
+2 )
+		read -p "Adja meg az elso szamot: " a;
+		read -p "Adja meg a masodik szamot: " b;
+		c=$(( $a + $b ));
+		echo "A kivonas eredmenye: $c";
+		;;
+3 )
+		read -p "Adja meg az elso szamot: " a;
+		read -p "Adja meg a masodik szamot: " b;
+		c=$(( $a * $b ));
+		echo "A szorzas eredmenye: $c";
+		;;
+4 )
+		read -p "Adja meg az elso szamot: " a;
+		read -p "Adja meg a masodik szamot: " b;
+		c=$(( $a / $b ));
+		echo" Az osztas eredmenye: $c";
+		;;
+5 )
+		read -p "Adja meg az elso szamot: " a;
+		read -p "Adja meg a masodik szamot: " b;
+		read -p "Adja meg a harmadik szamot: " c;
+
+		d=`echo "scale=4; $b * $b - 4 * $a * $c" | bc`
+
+		if [ $a -eq 0 ]; then
+			echo "Ez nem egy masodfoku egyenlet!";
+		elif [ $d -lt 0 ];then
+			echo "Nem valos gyok az eredmeny!";
+		elif [ $d -eq 0 ]; then
+			x1=`echo " scale=4; ( -$b )/( 2 * $a )" | bc`
+			echo "Mivel a diszkriminans 0 ezert egy eredmenyunk van az pedig: $x1";
+		else
+			x1=`echo " scale=4; ( -$b+sqrt($d))/(2*$a)" | bc`
+			x2=`echo " scale=4; ( -$b-sqrt($d))/(2*$a)" | bc`
+			echo "Az elso eredmeny: $x1 , a masodik: $x2";
+		fi
+		;;
+7 )
+	read -p "Adja meg a szamot: " a;
+	read -p "Adja meg a kitevot: " b;
+	c=`echo "$a ^ $b" | bc`
+	echo "A hatvanyozas eredmenye: $c";
+	;;
